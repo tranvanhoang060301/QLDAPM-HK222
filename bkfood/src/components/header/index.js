@@ -18,7 +18,7 @@ function Header({ active }) {
                 <Nav className="ml-auto">
                     <Nav.Item className="m-2 d-flex justify-content-center"> 
                     <Button
-                        className="px-4 py-2 fw-bold header-button"
+                        className="px-4 py-2 fw-bold"
                         href={"/login"}
                         style={{ backgroundColor: "#A02F2F" }}
                         onMouseOver={(e) => e.target.style.backgroundColor = "#6F2020"}
@@ -29,7 +29,7 @@ function Header({ active }) {
                     </Nav.Item>
                     <Nav.Item className="m-2 d-flex justify-content-center">
                     <Button
-                        className="px-4 py-2 fw-bold header-button"
+                        className="px-4 py-2 fw-bold"
                         href={"/signup"}
                         style={{ backgroundColor: "#A02F2F" }}
                         onMouseOver={(e) => e.target.style.backgroundColor = "#6F2020"}

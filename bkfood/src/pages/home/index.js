@@ -1,5 +1,4 @@
 import Header from "../../components/header";
-import Footer from "../../components/footer";
 import { Container, Button, Col, Row, Image } from "react-bootstrap";
 
 import Homepage from "../../assets/images/homepage.png";
@@ -31,7 +30,6 @@ function Home() {
           </Col>
         </Row>
       </Container>
-      <Footer />
     </>
   );
 }
