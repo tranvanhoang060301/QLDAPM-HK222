@@ -32,8 +32,8 @@ const Login = () => {
         <h2 className="text-center fs-2 fw-bolder py-2">Đăng nhập</h2>
         <Form onSubmit={handleSubmit}>
           {error !== "" && <Alert variant="danger">{error}</Alert>}
-          <Form.Group className="py-2" controlId="email">
-            <Form.Label className="py-2 font-medium">Email</Form.Label>
+          <Form.Group className="mb-3" controlId="email">
+            <Form.Label className="font-medium">Email</Form.Label>
             <Form.Control
                 type="email"
                 style={{ border: '2px solid #000000', fontSize: "28px" }}
@@ -41,8 +41,8 @@ const Login = () => {
                 onChange={(e) => setEmail(e.target.value)}
             />
           </Form.Group>
-          <Form.Group className="py-2" controlId="password">
-            <Form.Label className="py-2 font-medium">Mật khẩu</Form.Label>
+          <Form.Group className="mb-3" controlId="password">
+            <Form.Label className="font-medium">Mật khẩu</Form.Label>
             <Form.Control
                 type="password"
                 style={{ border: '2px solid #000000', fontSize: "28px" }}
