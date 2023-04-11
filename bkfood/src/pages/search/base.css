@@ -1,0 +1,10 @@
+.wheel{
+    width: 100%;
+    min-height: 650px;
+    background-color: black;
+    display: flex;
+}
+
+.wheel_around{
+    width: 50%;
+}
