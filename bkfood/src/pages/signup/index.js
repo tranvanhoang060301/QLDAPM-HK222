@@ -1,37 +1,49 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Container, Form, Button, Row, Col, Alert } from 'react-bootstrap';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Container, Form, Button, Row, Col, Alert } from "react-bootstrap";
 
 import Background from "../../assets/images/background.png";
 
 const Signup = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     if (passwordConfirm !== password) {
-      return setError('Passwords are not matching');
+      return setError("Passwords are not matching");
     }
 
     try {
       setLoading(true);
-      navigate('/');
+      navigate("/");
     } catch (e) {
-      setError('Failed to create an account. Please try again');
+      setError("Failed to create an account. Please try again");
     }
     setLoading(false);
   };
 
   return (
-    <Container fluid className="d-flex justify-content-center align-items-center" style={{backgroundImage: `url(${Background})`, backgroundRepeat: "none", backgroundSize: "cover", height: '100vh'}}>
-      <div className="p-4 border min-w- bg-light rounded-3 shadow" style={{ minWidth: '468px', fontSize: "24px"}}>
+    <Container
+      fluid
+      className="d-flex justify-content-center align-items-center"
+      style={{
+        backgroundImage: `url(${Background})`,
+        backgroundRepeat: "none",
+        backgroundSize: "cover",
+        height: "100vh",
+      }}
+    >
+      <div
+        className="p-4 border min-w- bg-light rounded-3 shadow"
+        style={{ minWidth: "468px", fontSize: "24px" }}
+      >
         <h2 className="text-center fs-2 fw-bolder py-2">ĐĂNG KÝ</h2>
         <Form onSubmit={handleSubmit}>
           {error && (
@@ -44,7 +56,7 @@ const Signup = () => {
             <Form.Control
               type="email"
               value={email}
-              style={{ border: '2px solid #000000', fontSize: "28px" }}
+              style={{ border: "2px solid #000000", fontSize: "28px" }}
               onChange={(e) => setEmail(e.target.value)}
             />
           </Form.Group>
@@ -54,7 +66,7 @@ const Signup = () => {
             <Form.Control
               type="password"
               value={password}
-              style={{ border: '2px solid #000000', fontSize: "28px"  }}
+              style={{ border: "2px solid #000000", fontSize: "28px" }}
               onChange={(e) => setPassword(e.target.value)}
             />
           </Form.Group>
@@ -64,7 +76,7 @@ const Signup = () => {
             <Form.Control
               type="password"
               value={passwordConfirm}
-              style={{ border: '2px solid #000000', fontSize: "28px"  }}
+              style={{ border: "2px solid #000000", fontSize: "28px" }}
               onChange={(e) => setPasswordConfirm(e.target.value)}
             />
           </Form.Group>
@@ -72,16 +84,20 @@ const Signup = () => {
             type="submit"
             className="w-100 my-2 py-3 fw-bold fs-4"
             style={{ backgroundColor: "#A02F2F" }}
-            onMouseOver={(e) => e.target.style.backgroundColor = "#6F2020"}
-            onMouseOut={(e) => e.target.style.backgroundColor = "#A02F2F"}
+            onMouseOver={(e) => (e.target.style.backgroundColor = "#6F2020")}
+            onMouseOut={(e) => (e.target.style.backgroundColor = "#A02F2F")}
             disabled={loading}
           >
-            {loading ? 'Loading...' : 'ĐĂNG KÝ'}
+            {loading ? "Loading..." : "ĐĂNG KÝ"}
           </Button>
         </Form>
         <div className="w-100 text-center mt-3">
-          Đã có tài khoản?{' '}
-          <Link to="/login" className="text-primary" style={{ textDecoration: 'none' }}>
+          Đã có tài khoản?{" "}
+          <Link
+            to="/login"
+            className="text-primary"
+            style={{ textDecoration: "none" }}
+          >
             Đăng nhập
           </Link>
         </div>
