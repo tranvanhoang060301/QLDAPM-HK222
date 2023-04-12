@@ -1,5 +1,6 @@
 import Header from "../../components/header";
 import { Container, Button, Col, Row, Image } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 import Homepage from "../../assets/images/homepage.png";
 
@@ -23,19 +24,21 @@ function Home() {
               Bạn đang gặp khó khăn trong quá trình lựa chọn địa điểm ăn uống?
               Đừng lo, vì đã có BKSuggest đây rồi!
             </p>
-            <Button
-              className="px-5 py-3 fw-bold header-button"
-              href={"/"}
-              style={{
-                backgroundColor: "#81BE00",
-                borderRadius: "84px",
-                fontSize: "20px",
-              }}
-              onMouseOver={(e) => (e.target.style.backgroundColor = "#709523")}
-              onMouseOut={(e) => (e.target.style.backgroundColor = "#81BE00")}
-            >
-              CHỌN ĐỊA ĐIỂM NGAY
-            </Button>
+            <Link to="/search">
+              <Button
+                className="px-5 py-3 fw-bold header-button"
+                href={"/"}
+                style={{
+                  backgroundColor: "#81BE00",
+                  borderRadius: "84px",
+                  fontSize: "20px",
+                }}
+                onMouseOver={(e) => (e.target.style.backgroundColor = "#709523")}
+                onMouseOut={(e) => (e.target.style.backgroundColor = "#81BE00")}
+              >
+                CHỌN ĐỊA ĐIỂM NGAY
+              </Button>
+            </Link>
           </Col>
           <Col className="d-flex align-items-start justify-content-center">
             <Image src={Homepage} alt="Homepage" fluid />

@@ -8,3 +8,76 @@
 .wheel_around{
     width: 50%;
 }
+
+.wheel_around1{
+    width: 512px;
+    
+    margin-top: 2rem;
+    margin-left: 16.32%;
+}
+
+.wheel_around-haft{
+    width: 512px;
+    height: 512px;
+    background-color: azure;
+    border-radius: 100%;
+    /* display: flex; */
+}
+
+.wheel_around-haft1{
+    width: 100%;
+    height: 50%;
+    /* background-color: blue; */
+    display: flex;
+    /* cursor: pointer; */
+}
+
+.wheel_around-haft11{
+    width: 50%;
+    height: 100%;
+    border: 1px solid #000000;
+    border-top-left-radius: 100%;
+    /* background-color: rgb(53, 53, 57); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wheel_around-haft12{
+    width: 50%;
+    height: 100%;
+    border-top-right-radius: 100%;
+    border: 1px solid #000000;
+    /* background-color: rgb(53, 53, 57); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wheel_around-haft13{
+    width: 50%;
+    height: 100%;
+    border: 1px solid #000000;
+    border-bottom-left-radius: 100%;
+    /* background-color: rgb(53, 53, 57); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wheel_around-haft14{
+    width: 50%;
+    height: 100%;
+    border-bottom-right-radius: 100%;
+    border: 1px solid #000000;
+    /* background-color: rgb(53, 53, 57); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-size1{
+    width: 140px;
+    height: 56px;
+    margin: 10px;
+}

@@ -7,6 +7,7 @@ import FavoritePlaces from './pages/favoritePlaces';
 import Whatever from './pages/whatever';
 import Login from './pages/login';
 import Signup from './pages/signup';
+import './App.css';
 
 function App() {
   return (
