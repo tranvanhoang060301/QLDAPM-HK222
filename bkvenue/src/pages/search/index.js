@@ -5,20 +5,22 @@ import "./base.css";
 import Wheel from "../../components/wheel/wheel";
 import { TodoWrapper } from "../../components/wheel/TodoWrapper";
 import { useEffect, useState } from "react";
-
-const foodArr = ["Hủ tiếu", "Cháo lòng", "Bún riêu", "Bún bò"];
-
-const beverageArr = ["Phúc Long", "Highland", "Circle K", "Starbuck"];
+import axios from "axios";
 
 function Search() {
   const location = useLocation();
   const [active, setActive] = useState(location.state.active);
-  const [optionList, setOptionList] = useState(foodArr);
+  const [optionList, setOptionList] = useState([]);
 
   useEffect(() => {
     // Call API to get option
-
-    setOptionList(foodArr);
+    axios
+      .get("http://localhost:5000/dish")
+      .then((res) => {
+        const updatedOptionList = res.data.map((option) => option.name);
+        setOptionList(updatedOptionList);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
@@ -31,9 +33,13 @@ function Search() {
       <Nav1 active={active} />
       <div className="wheel">
         <div className="wheel_around">
-          <div className="wheel_around1">
-            <Wheel option={optionList}/>
-          </div>
+          {optionList.length > 0 ? (
+            <div className="wheel_around1">
+              <Wheel optionList={optionList} />
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
         <div className="wheel_around">
           <TodoWrapper />
