@@ -23,7 +23,7 @@ function Home() {
             <p className="my-5" style={{ color: "#FFFFFF", fontSize: "28px", textAlign: "start" }}>
               Bạn đang gặp khó khăn trong quá trình lựa chọn địa điểm ăn uống? Đừng lo, vì đã có BKSuggest đây rồi!
             </p>
-            <Link to="/search" state={{ active: "food" }}>
+            <Link to="/search/food" state={{ active: "food" }}>
               <Button
                 className="px-5 py-3 fw-bold header-button border-0"
                 href={"/"}

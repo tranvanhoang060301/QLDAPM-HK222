@@ -1,2 +1,0 @@
-# QLDAPM-HK222
-BKFood
