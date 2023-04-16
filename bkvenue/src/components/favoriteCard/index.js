@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import { Button, Col, Card } from "react-bootstrap";
 import Place from "../../assets/images/place.png";
 
@@ -8,6 +9,9 @@ export default function FavoriteCard({
   dish,
   price,
 }) {
+  const location = useLocation();
+  const isFavoritePage = location.pathname === "/search/favoritePlace";
+  console.log(isFavoritePage);
   return (
     <Col className="d-flex justify-content-around flex-wrap fs-5" xs={4}>
       <Card
@@ -37,16 +41,30 @@ export default function FavoriteCard({
           <Card.Text>Giá: {price}</Card.Text>
         </Card.Body>
         <Card.Img variant="primary" src={Place} />
-        <Button
-          className="w-100 mt-3 py-3 fs-5 fw-bold border-0"
-          style={{
-            backgroundColor: "#A02F2F",
-          }}
-          onMouseOver={(e) => (e.target.style.backgroundColor = "#6F2020")}
-          onMouseOut={(e) => (e.target.style.backgroundColor = "#A02F2F")}
-        >
-          THÊM VÀO MỤC ƯA THÍCH
-        </Button>
+        {!isFavoritePage && (
+          <Button
+            className="w-100 mt-3 py-3 fs-5 fw-bold border-0"
+            style={{
+              backgroundColor: "#A02F2F",
+            }}
+            onMouseOver={(e) => (e.target.style.backgroundColor = "#6F2020")}
+            onMouseOut={(e) => (e.target.style.backgroundColor = "#A02F2F")}
+          >
+            THÊM VÀO MỤC ƯA THÍCH
+          </Button>
+        )}
+        {isFavoritePage && (
+          <Button
+            className="w-100 mt-3 py-3 fs-5 fw-bold border-0"
+            style={{
+              backgroundColor: "#A02F2F",
+            }}
+            onMouseOver={(e) => (e.target.style.backgroundColor = "#6F2020")}
+            onMouseOut={(e) => (e.target.style.backgroundColor = "#A02F2F")}
+          >
+            XÓA KHỎI MỤC ƯA THÍCH
+          </Button>
+        )}
       </Card>
     </Col>
   );
