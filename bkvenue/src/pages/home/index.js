@@ -1,10 +1,21 @@
 import Header from "../../components/header";
 import { Container, Button, Col, Row, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import axios from "axios"
 
 import Homepage from "../../assets/images/homepage.png";
 
 function Home() {
+  axios.post('http://localhost:5000/user/login', {
+    "email": "test1@gmail.com",
+    "password": "12345621"
+  })
+  .then(function (response) {
+    console.log(response.data);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
   return (
     <>
       <Header />

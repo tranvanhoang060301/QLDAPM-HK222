@@ -8,13 +8,14 @@ import Whatever from "./pages/whatever";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
 import "./App.css";
+import ProtectedRoute from "./utils/ProtectedRoute";
 
 function App() {
   return (
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/search/:slug" element={<Search />} />

@@ -9,6 +9,7 @@
 .btnSize {
   width: 240px;
   height: 168px;
+  background-color: #FF7E00;
 }
 
 .btn.active {

@@ -4,8 +4,10 @@ import Nav1 from "../../components/nav";
 import "./base.css";
 import Wheel from "../../components/wheel/wheel";
 import { TodoWrapper } from "../../components/wheel/TodoWrapper";
+import FavoriteCard from "../../components/favoriteCard";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Row } from "react-bootstrap";
 
 function Search() {
   const location = useLocation();
@@ -45,6 +47,30 @@ function Search() {
           <TodoWrapper />
         </div>
       </div>
+      <Row className="d-flex justify-content-around flex-wrap m-5 px-5">
+        <h1 className="text-black mb-4">ĐỊA ĐIỂM GỢI Ý</h1>
+        <FavoriteCard
+          name="Bún bò Quán"
+          address="113, Tân Bình, TPHCM"
+          openingHours="7h-19h"
+          dish="Bún bò"
+          price="45-55k"
+        />
+        <FavoriteCard
+          name="Bún bò Quán"
+          address="113, Tân Bình, TPHCM"
+          openingHours="7h-19h"
+          dish="Bún bò"
+          price="45-55k"
+        />
+        <FavoriteCard
+          name="Bún bò Quán"
+          address="113, Tân Bình, TPHCM"
+          openingHours="7h-19h"
+          dish="Bún bò"
+          price="45-55k"
+        />
+      </Row>
     </div>
   );
 }
