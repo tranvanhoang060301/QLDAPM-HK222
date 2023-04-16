@@ -51,7 +51,7 @@ const Signup = () => {
               {error}
             </Alert>
           )}
-          <Form.Group className="mb-3" controlId="formEmail">
+          <Form.Group className="d-flex flex-column align-items-start mb-3" controlId="formEmail">
             <Form.Label>Email</Form.Label>
             <Form.Control
               type="email"
@@ -61,7 +61,7 @@ const Signup = () => {
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formPassword">
+          <Form.Group className="d-flex flex-column align-items-start mb-3" controlId="formPassword">
             <Form.Label>Mật khẩu</Form.Label>
             <Form.Control
               type="password"
@@ -71,7 +71,7 @@ const Signup = () => {
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formPasswordConfirm">
+          <Form.Group className="d-flex flex-column align-items-start mb-3" controlId="formPasswordConfirm">
             <Form.Label>Xác nhận mật khẩu</Form.Label>
             <Form.Control
               type="password"
@@ -82,7 +82,7 @@ const Signup = () => {
           </Form.Group>
           <Button
             type="submit"
-            className="w-100 my-2 py-3 fw-bold fs-4"
+            className="w-100 my-2 py-3 fw-bold fs-4 border-0"
             style={{ backgroundColor: "#A02F2F" }}
             onMouseOver={(e) => (e.target.style.backgroundColor = "#6F2020")}
             onMouseOut={(e) => (e.target.style.backgroundColor = "#A02F2F")}

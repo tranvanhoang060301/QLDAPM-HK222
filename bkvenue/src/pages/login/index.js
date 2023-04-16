@@ -41,10 +41,10 @@ const Login = () => {
         className="p-4 border min-w- bg-light rounded-3 shadow"
         style={{ minWidth: "468px", fontSize: "24px" }}
       >
-        <h2 className="text-center fs-2 fw-bolder py-2">Đăng nhập</h2>
+        <h2 className="text-center fs-2 fw-bolder py-2">ĐĂNG NHẬP</h2>
         <Form onSubmit={handleSubmit}>
           {error !== "" && <Alert variant="danger">{error}</Alert>}
-          <Form.Group className="mb-3" controlId="email">
+          <Form.Group className="d-flex flex-column align-items-start mb-3" controlId="email">
             <Form.Label className="font-medium">Email</Form.Label>
             <Form.Control
               type="email"
@@ -53,7 +53,7 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="password">
+          <Form.Group className="d-flex flex-column align-items-start mb-3" controlId="password">
             <Form.Label className="font-medium">Mật khẩu</Form.Label>
             <Form.Control
               type="password"
@@ -64,7 +64,7 @@ const Login = () => {
           </Form.Group>
           <Button
             type="submit"
-            className="w-100 my-2 py-3 fw-bold fs-4"
+            className="w-100 my-2 py-3 fw-bold fs-4 border-0"
             style={{ backgroundColor: "#A02F2F" }}
             onMouseOver={(e) => (e.target.style.backgroundColor = "#6F2020")}
             onMouseOut={(e) => (e.target.style.backgroundColor = "#A02F2F")}

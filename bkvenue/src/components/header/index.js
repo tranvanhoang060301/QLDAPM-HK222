@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Navbar, Nav, Button, Container } from "react-bootstrap";
 import Logo from "../../assets/images/logo.png";
 
-function Header({ active }) {
+function Header() {
   return (
     <>
       <Navbar
@@ -25,7 +25,7 @@ function Header({ active }) {
             <Nav className="ml-auto">
               <Nav.Item className="m-2 d-flex justify-content-center">
                 <Button
-                  className="px-4 py-2 fw-bold"
+                  className="px-4 py-2 fw-bold border-0"
                   href={"/login"}
                   style={{ backgroundColor: "#A02F2F" }}
                   onMouseOver={(e) =>
@@ -40,7 +40,7 @@ function Header({ active }) {
               </Nav.Item>
               <Nav.Item className="m-2 d-flex justify-content-center">
                 <Button
-                  className="px-4 py-2 fw-bold"
+                  className="px-4 py-2 fw-bold border-0"
                   href={"/signup"}
                   style={{ backgroundColor: "#A02F2F" }}
                   onMouseOver={(e) =>
