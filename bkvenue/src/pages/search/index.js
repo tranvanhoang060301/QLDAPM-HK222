@@ -2,12 +2,24 @@ import { useLocation } from "react-router-dom";
 import Header from "../../components/header";
 import Nav1 from "../../components/nav";
 import "./base.css";
+import Wheel from "../../components/wheel/wheel";
 import { TodoWrapper } from "../../components/wheel/TodoWrapper";
 import { useEffect, useState } from "react";
+
+const foodArr = ["Hủ tiếu", "Cháo lòng", "Bún riêu", "Bún bò"];
+
+const beverageArr = ["Phúc Long", "Highland", "Circle K", "Starbuck"];
 
 function Search() {
   const location = useLocation();
   const [active, setActive] = useState(location.state.active);
+  const [optionList, setOptionList] = useState(foodArr);
+
+  useEffect(() => {
+    // Call API to get option
+
+    setOptionList(foodArr);
+  }, []);
 
   useEffect(() => {
     setActive(location.state.active);
@@ -20,33 +32,7 @@ function Search() {
       <div className="wheel">
         <div className="wheel_around">
           <div className="wheel_around1">
-            <div className="wheel_around-haft">
-              <div className="wheel_around-haft1">
-                <div className="wheel_around-haft11">
-                  <h3>Bún bò</h3>
-                </div>
-                <div className="wheel_around-haft12">
-                  <h3>Hủ tiếu</h3>
-                </div>
-              </div>
-
-              <div className="wheel_around-haft1">
-                <div className="wheel_around-haft13">
-                  <h3>Cháo lòng</h3>
-                </div>
-                <div className="wheel_around-haft14">
-                  <h3>Bún riêu</h3>
-                </div>
-              </div>
-            </div>
-            <div className="wheel_around-click">
-              <button type="button" className="btn btn-warning btn-size1">
-                <h2>Start</h2>
-              </button>
-              <button type="button" className="btn btn-success btn-size1">
-                <h2>Stop</h2>
-              </button>
-            </div>
+            <Wheel option={optionList}/>
           </div>
         </div>
         <div className="wheel_around">

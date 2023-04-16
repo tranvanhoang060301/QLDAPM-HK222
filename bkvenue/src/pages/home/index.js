@@ -37,7 +37,6 @@ function Home() {
             <Link to="/search/food" state={{ active: "food" }}>
               <Button
                 className="px-5 py-3 fw-bold header-button border-0"
-                href={"/"}
                 style={{
                   backgroundColor: "#81BE00",
                   borderRadius: "84px",

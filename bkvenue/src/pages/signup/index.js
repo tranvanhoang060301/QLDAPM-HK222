@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Container, Form, Button, Row, Col, Alert } from "react-bootstrap";
+import { Container, Form, Button, Alert } from "react-bootstrap";
 
 import Background from "../../assets/images/background.png";
 
