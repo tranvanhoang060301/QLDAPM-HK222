@@ -38,22 +38,26 @@ function Search() {
     <div>
       <Header />
       <Nav1 active={active} />
-      <div className="wheel">
-        <div className="wheel_around">
-          {optionList.length > 0 ? (
-            <div className="wheel_around1">
-              <Wheel optionList={optionList} />
-            </div>
-          ) : (
-            <></>
-          )}
+      {active !== "favoritePlace" && (
+        <div className="wheel">
+          <div className="wheel_around">
+            {optionList.length > 0 ? (
+              <div className="wheel_around1">
+                <Wheel optionList={optionList} />
+              </div>
+            ) : (
+              <></>
+            )}
+          </div>
+          <div className="wheel_around">
+            <TodoWrapper active={active} optionList={optionList} />
+          </div>
         </div>
-        <div className="wheel_around">
-          <TodoWrapper active={active} optionList={optionList} />
-        </div>
-      </div>
+      )}
       <Row className="d-flex justify-content-around flex-wrap m-5 px-5">
-        <h1 className="text-black mb-4">ĐỊA ĐIỂM GỢI Ý</h1>
+        {active !== "favoritePlace" && (
+          <h1 className="text-black mb-4">ĐỊA ĐIỂM GỢI Ý</h1>
+        )}
         <FavoriteCard
           name="Bún bò Quán"
           address="113, Tân Bình, TPHCM"

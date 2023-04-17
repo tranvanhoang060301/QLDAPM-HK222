@@ -62,7 +62,7 @@ export default function FavoriteCard({
             onMouseOver={(e) => (e.target.style.backgroundColor = "#6F2020")}
             onMouseOut={(e) => (e.target.style.backgroundColor = "#A02F2F")}
           >
-            XÓA KHỎI MỤC ƯA THÍCH
+            XÓA
           </Button>
         )}
       </Card>
