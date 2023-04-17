@@ -1,0 +1,6 @@
+import axios from 'axios';
+
+export const callapi = (username, password) => {
+  return axios.post('http://localhost:5000/user/login', { username, password })
+    .then(response => response.data);
+};
