@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import WheelComponent from "react-wheel-of-prizes";
 import "./base.css";
-import axios from "axios";
 
 const Wheel = ({optionList}) => {
   const [optionLists, setOptionLists] = useState(optionList);

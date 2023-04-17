@@ -15,15 +15,20 @@ function Search() {
   const [optionList, setOptionList] = useState([]);
 
   useEffect(() => {
+    let URI = `http://localhost:5000/${active}`;
+    if (active === "whatever") {
+      // URI get all food and beverage
+      URI = `http://localhost:5000/dish`;
+    }
     // Call API to get option
     axios
-      .get("http://localhost:5000/dish")
+      .get(URI)
       .then((res) => {
         const updatedOptionList = res.data.map((option) => option.name);
         setOptionList(updatedOptionList);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [active]);
 
   useEffect(() => {
     setActive(location.state.active);
@@ -44,7 +49,7 @@ function Search() {
           )}
         </div>
         <div className="wheel_around">
-          <TodoWrapper />
+          <TodoWrapper active={active} optionList={optionList} />
         </div>
       </div>
       <Row className="d-flex justify-content-around flex-wrap m-5 px-5">

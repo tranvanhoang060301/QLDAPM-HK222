@@ -4,10 +4,10 @@ import "./base.css";
 function Nav1({ active }) {
   return (
     <div className="nav_size">
-      <Link to="/search/food" state={{ active: "food" }}>
+      <Link to="/search/dish" state={{ active: "dish" }}>
         <button
           type="button"
-          className={`btn btn-warning fw-bold btnSize border-0 ${active === "food" ? "active" : ""}`}
+          className={`btn btn-warning fw-bold btnSize border-0 ${active === "dish" ? "active" : ""}`}
         >
           <h2>TÌM KIẾM QUÁN ĂN</h2>
         </button>
