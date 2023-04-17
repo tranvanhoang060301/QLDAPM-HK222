@@ -26,6 +26,14 @@ function Header() {
               <Nav.Item className="m-2 d-flex justify-content-center">
                 <Button
                   className="px-4 py-2 fw-bold border-0"
+                  style={{ backgroundColor: "#A02F2F" }}
+                >
+                  WELCOME, USER
+                </Button>
+              </Nav.Item>
+              <Nav.Item className="m-2 d-flex justify-content-center">
+                <Button
+                  className="px-4 py-2 fw-bold border-0"
                   href={"/login"}
                   style={{ backgroundColor: "#A02F2F" }}
                   onMouseOver={(e) =>
@@ -35,22 +43,7 @@ function Header() {
                     (e.target.style.backgroundColor = "#A02F2F")
                   }
                 >
-                  LOGIN
-                </Button>
-              </Nav.Item>
-              <Nav.Item className="m-2 d-flex justify-content-center">
-                <Button
-                  className="px-4 py-2 fw-bold border-0"
-                  href={"/signup"}
-                  style={{ backgroundColor: "#A02F2F" }}
-                  onMouseOver={(e) =>
-                    (e.target.style.backgroundColor = "#6F2020")
-                  }
-                  onMouseOut={(e) =>
-                    (e.target.style.backgroundColor = "#A02F2F")
-                  }
-                >
-                  SIGNUP
+                  LOGOUT
                 </Button>
               </Nav.Item>
             </Nav>

@@ -7,33 +7,33 @@ function Nav1({ active }) {
       <Link to="/search/dish" state={{ active: "dish" }}>
         <button
           type="button"
-          className={`btn btn-warning fw-bold btnSize border-0 ${active === "dish" ? "active" : ""}`}
+          className={`btn btn-warning fw-bold fs-3 btnSize ${active === "dish" ? "active" : ""}`}
         >
-          <h2>TÌM KIẾM QUÁN ĂN</h2>
+          TÌM KIẾM QUÁN ĂN
         </button>
       </Link>
       <Link to="/search/beverage" state={{ active: "beverage" }}>
         <button
           type="button"
-          className={`btn btn-warning fw-bold btnSize border-0 ${active === "beverage" ? "active" : ""}`}
+          className={`btn btn-warning fw-bold fs-3 btnSize ${active === "beverage" ? "active" : ""}`}
         >
-          <h2>TÌM KIẾM QUÁN NƯỚC</h2>
+          TÌM KIẾM QUÁN NƯỚC
         </button>
       </Link>
       <Link to="/search/whatever" state={{ active: "whatever" }}>
         <button
           type="button"
-          className={`btn btn-warning fw-bold btnSize border-0 ${active === "whatever" ? "active" : ""}`}
+          className={`btn btn-warning fw-bold fs-3 btnSize ${active === "whatever" ? "active" : ""}`}
         >
-          <h2>GÌ CŨNG ĐƯỢC</h2>
+          GÌ CŨNG ĐƯỢC
         </button>
       </Link>
       <Link to="/search/favoritePlace" state={{ active: "favoritePlace" }}>
         <button
           type="button"
-          className={`btn btn-warning fw-bold btnSize border-0 ${active === "favoritePlace" ? "active" : ""}`}
+          className={`btn btn-warning fw-bold fs-3 btnSize ${active === "favoritePlace" ? "active" : ""}`}
         >
-          <h2>ĐỊA ĐIỂM ƯA THÍCH</h2>
+          ĐỊA ĐIỂM ƯA THÍCH
         </button>
       </Link>
     </div>
