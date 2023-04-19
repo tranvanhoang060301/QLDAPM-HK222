@@ -1,14 +1,16 @@
 const createError = require('http-errors');
-const Dishs = require('../models/Dish');
-const brcypt = require('bcryptjs');
-const { Query } = require('firefose');
+const Collection = require('../collection/collection');
 
 class Dish {
-    getDishs = async (req, res, next) => {
+    getDishes = async (req, res, next) => {
         try {
-            const query = new Query();
-            const dishs = await Dishs.find(query);
-            res.status(200).json(dishs)
+            const query = await Collection.dishesRef.get()
+            const dishes = query.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+            
+            res.status(200).json(dishes)
         } catch (error) {
             return res.send(error.message);
         }
@@ -17,9 +19,13 @@ class Dish {
     getDishById = async (req, res, next) => {
         try {
             const id = req.params.id;
-            const dish = await Dishs.findById(id);
-            // const dish = await Dishs.findById(id);
-            res.status(200).json(dish)
+            const docRef = Collection.dishesRef.doc(id);
+            const dish = await docRef.get();
+            if(!dish.exists) return res.send(createError.NotFound("Dish not found"));
+            res.status(200).json({
+                id: dish.id,
+                ...dish.data()
+            })
         } catch (error) {
             return res.send(error.message);
         }
@@ -28,11 +34,41 @@ class Dish {
     createDish = async (req, res, next) => {
         try {
             const name = req.body.name;
-            const query = new Query().where('name', '==', name);
-            const checkDish = await Dishs.find(query);
-            if(checkDish.length > 0) return res.json(createError.BadRequest("Dish already exists!"));
-            const newDish = await Dishs.create({name: name});
-            res.status(201).json(newDish);
+            const query = await Collection.dishesRef.where('name', '==', name).get();
+            if(!query.empty) return res.send(createError.BadRequest("Dish already exists!"));
+            const docRef = await Collection.dishesRef.add({ name });
+            const newDish = await docRef.get();
+            res.status(201).json({
+                id: newDish.id,
+                ...newDish.data()
+            });
+        } catch (error) {
+            return res.send(error.message);
+        }
+    }
+
+    deleteDishByName = async (req, res, next) => {
+        try {
+            const name = req.body.name;
+            const query = await Collection.dishesRef.where('name', '==', name).get();
+            if(query.empty) return res.json(createError.NotFound("Dish not found!"));
+            const batch = await Collection.dishesRef.firestore.batch();
+            query.forEach((doc) => batch.delete(doc.ref));
+            await batch.commit();
+            res.status(200).json("Successful delete");
+        } catch (error) {
+            return res.send(error.message);
+        }
+    }
+
+    deleteDishById = async (req, res, next) => {
+        try {
+            const id = req.params.id;
+            const docRef = Collection.dishesRef.doc(id);
+            const doc = await docRef.get();
+            if(!doc.exists) return res.send(createError.NotFound("Dish not found"));
+            await docRef.delete();
+            res.status(200).json({ message: "Dish deleted successfully" });
         } catch (error) {
             return res.send(error.message);
         }
