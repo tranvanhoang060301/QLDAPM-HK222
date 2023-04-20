@@ -1,19 +1,14 @@
 import { useLocation } from "react-router-dom";
 import { Button, Col, Card } from "react-bootstrap";
-import Place from "../../assets/images/place.png";
 
 export default function FavoriteCard({
-  name,
-  address,
-  openingHours,
-  dish,
-  price,
+  info
 }) {
   const location = useLocation();
   const isFavoritePage = location.pathname === "/search/favoritePlace";
   console.log(isFavoritePage);
   return (
-    <Col className="d-flex justify-content-around flex-wrap fs-5" xs={4}>
+    <Col className="d-flex justify-content-around flex-wrap fs-5 mb-4" xs={4}>
       <Card
         className="p-4"
         style={{
@@ -34,13 +29,10 @@ export default function FavoriteCard({
             backgroundColor: "#FFFFFF",
           }}
         >
-          <Card.Text>Tên: {name}</Card.Text>
-          <Card.Text>Địa chỉ: {address}</Card.Text>
-          <Card.Text>Thời gian mở cửa: {openingHours}</Card.Text>
-          <Card.Text>Món ăn: {dish}</Card.Text>
-          <Card.Text>Giá: {price}</Card.Text>
+          <Card.Text>Tên: {info.name}</Card.Text>
+          <Card.Text>Địa chỉ: {info.address.num} {info.address.street}, phường {info.address.ward}, quận {info.address.district}, HCM</Card.Text>
         </Card.Body>
-        <Card.Img variant="primary" src={Place} />
+        <Card.Img variant="primary" src={info.imageUrl} className="rounded-2"/>
         {!isFavoritePage && (
           <Button
             className="w-100 mt-3 py-3 fs-5 fw-bold border-0"

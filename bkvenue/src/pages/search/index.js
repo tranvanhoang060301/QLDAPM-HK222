@@ -13,6 +13,11 @@ function Search() {
   const location = useLocation();
   const [active, setActive] = useState(location.state.active);
   const [optionList, setOptionList] = useState([]);
+  const [restaurantList, setRestaurantList] = useState([]);
+
+  useEffect(() => {
+    setActive(location.state.active);
+  }, [location]);
 
   useEffect(() => {
     let URI = `https://bk-suggest.vercel.app/${active}`;
@@ -30,10 +35,31 @@ function Search() {
       .catch((err) => console.log(err));
   }, [active]);
 
-  console.log(optionList)
   useEffect(() => {
-    setActive(location.state.active);
-  }, [location]);
+    let URI = "";
+    if (active === "dish") {
+      URI = "https://bk-suggest.vercel.app/restaurant";
+    } else if (active === "beverage") {
+      URI = "https://bk-suggest.vercel.app/stall";
+    } else if (active === "whatever") {
+      URI = "https://bk-suggest.vercel.app/restaurant";
+      
+      axios
+        .get("https://bk-suggest.vercel.app/stall")
+        .then((res) => {
+          setRestaurantList((prevList) => [...prevList, ...res.data]);
+        })
+        .catch((err) => console.log(err));
+    }
+    axios
+      .get(URI)
+      .then((res) => {
+        setRestaurantList(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, [active]);
+  
+  console.log(restaurantList)
 
   return (
     <div>
@@ -55,31 +81,14 @@ function Search() {
           </div>
         </div>
       )}
-      <Row className="d-flex justify-content-around flex-wrap m-5 px-5">
+      <Row className="d-flex justify-content-start flex-wrap m-5 px-5">
         {active !== "favoritePlace" && (
           <h1 className="text-black mb-4">ĐỊA ĐIỂM GỢI Ý</h1>
         )}
-        <FavoriteCard
-          name="Bún bò Quán"
-          address="113, Tân Bình, TPHCM"
-          openingHours="7h-19h"
-          dish="Bún bò"
-          price="45-55k"
-        />
-        <FavoriteCard
-          name="Bún bò Quán"
-          address="113, Tân Bình, TPHCM"
-          openingHours="7h-19h"
-          dish="Bún bò"
-          price="45-55k"
-        />
-        <FavoriteCard
-          name="Bún bò Quán"
-          address="113, Tân Bình, TPHCM"
-          openingHours="7h-19h"
-          dish="Bún bò"
-          price="45-55k"
-        />
+        {restaurantList.map((props) =>
+            <FavoriteCard info={props}>
+            </FavoriteCard>
+          )}
       </Row>
     </div>
   );

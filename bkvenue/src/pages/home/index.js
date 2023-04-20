@@ -6,7 +6,7 @@ import axios from "axios"
 import Homepage from "../../assets/images/homepage.png";
 
 function Home() {
-  axios.post('http://localhost:5000/user/login', {
+  axios.post('https://bk-suggest.vercel.app/login', {
     "email": "test1@gmail.com",
     "password": "12345621"
   })
