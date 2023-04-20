@@ -15,10 +15,10 @@ function Search() {
   const [optionList, setOptionList] = useState([]);
 
   useEffect(() => {
-    let URI = `http://localhost:5000/${active}`;
+    let URI = `https://bk-suggest.vercel.app/${active}`;
     if (active === "whatever") {
       // URI get all food and beverage
-      URI = `http://localhost:5000/dish`;
+      URI = `https://bk-suggest.vercel.app/dish`;
     }
     // Call API to get option
     axios
@@ -30,6 +30,7 @@ function Search() {
       .catch((err) => console.log(err));
   }, [active]);
 
+  console.log(optionList)
   useEffect(() => {
     setActive(location.state.active);
   }, [location]);

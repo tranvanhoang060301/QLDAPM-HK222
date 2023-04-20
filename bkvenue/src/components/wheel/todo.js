@@ -1,14 +1,14 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 export const Todo = ({ task, deleteTodo }) => {
   return (
-    <div className="Todo">
-      <p>
+    <div className="Todo mx-auto">
+      <div className="text-center fs-3 fw-semibold mx-auto">
         {task.name}
-      </p>
-      <div>
-        <FontAwesomeIcon icon={faTrash} onClick={() => deleteTodo(task.id)} />
+      </div>
+      <div className="delbut fs-3 text-white bg-danger px-2 rounded-3">
+        <FontAwesomeIcon icon={faTimes} onClick={() => deleteTodo(task.id)} />
       </div>
     </div>
   );

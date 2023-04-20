@@ -38,7 +38,7 @@ export const TodoWrapper = ({ active, optionList }) => {
 
   return (
     <div className="TodoWrapper">
-      <h1>Bạn muốn ăn gì ?</h1>
+      <h1 className="fs-3">BẠN MUỐN ĂN GÌ ?</h1>
       {active === "whatever" ? (
         <>
           <TodoForm addTodo={addTodo} />
