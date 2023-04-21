@@ -20,7 +20,7 @@ export const TodoWrapper = ({ active, optionList }) => {
       });
     });
     setOptionItem(tmp);
-  }, []);
+  }, [optionList]);
 
   const addTodo = (todo) => {
     setTodos([...todos, { id: uuidv4(), name: todo, completed: false, isEditing: false }]);

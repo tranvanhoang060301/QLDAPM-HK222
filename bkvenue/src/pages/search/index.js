@@ -23,7 +23,7 @@ function Search() {
     let URI = `https://bk-suggest.vercel.app/${active}`;
     if (active === "whatever") {
       // URI get all food and beverage
-      URI = `https://bk-suggest.vercel.app/dish`;
+      URI =  `https://bk-suggest.vercel.app/dish`;
     }
     // Call API to get option
     axios
@@ -58,8 +58,6 @@ function Search() {
       })
       .catch((err) => console.log(err));
   }, [active]);
-  
-  console.log(restaurantList)
 
   return (
     <div>
@@ -69,7 +67,7 @@ function Search() {
         <div className="wheel">
           <div className="wheel_around">
             {optionList.length > 0 ? (
-              <div className="wheel_around1">
+              <div className="wheel_around1 pt-5">
                 <Wheel optionList={optionList} />
               </div>
             ) : (
