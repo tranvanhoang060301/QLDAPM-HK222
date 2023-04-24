@@ -13,7 +13,13 @@ function Search() {
   const location = useLocation();
   const [active, setActive] = useState(location.state.active);
   const [optionList, setOptionList] = useState([]);
+  const [idList, setIdList] = useState([]);
   const [restaurantList, setRestaurantList] = useState([]);
+  const [winner, setWinner] = useState(null);
+
+  const handleWheelFinished = (winner) => {
+    setWinner(winner);
+  };
 
   useEffect(() => {
     setActive(location.state.active);
@@ -23,14 +29,19 @@ function Search() {
     let URI = `https://bk-suggest.vercel.app/${active}`;
     if (active === "whatever") {
       // URI get all food and beverage
-      URI =  `https://bk-suggest.vercel.app/dish`;
+      URI = `https://bk-suggest.vercel.app/dish`;
     }
     // Call API to get option
     axios
       .get(URI)
       .then((res) => {
         const updatedOptionList = res.data.map((option) => option.name);
+        const updatedIdList = res.data.map((option) => option.id);
+        const mergedArray = updatedOptionList.map((item, index) => {
+          return { [item]: updatedIdList[index] };
+        });
         setOptionList(updatedOptionList);
+        setIdList(mergedArray);
       })
       .catch((err) => console.log(err));
   }, [active]);
@@ -38,18 +49,17 @@ function Search() {
   useEffect(() => {
     let URI = "";
     if (active === "dish") {
-      URI = "https://bk-suggest.vercel.app/restaurant";
+      if (winner === null) {
+        URI = "https://bk-suggest.vercel.app/restaurant";
+      } else {
+        URI = `https://bk-suggest.vercel.app/restaurant/findbydish/:${winner}`;
+      }
     } else if (active === "beverage") {
-      URI = "https://bk-suggest.vercel.app/stall";
-    } else if (active === "whatever") {
-      URI = "https://bk-suggest.vercel.app/restaurant";
-      
-      axios
-        .get("https://bk-suggest.vercel.app/stall")
-        .then((res) => {
-          setRestaurantList((prevList) => [...prevList, ...res.data]);
-        })
-        .catch((err) => console.log(err));
+      if (winner === null) {
+        URI = "https://bk-suggest.vercel.app/stall";
+      } else {
+        URI = `https://bk-suggest.vercel.app/stall/findbybeverage/${winner}`;
+      }
     }
     axios
       .get(URI)
@@ -57,8 +67,8 @@ function Search() {
         setRestaurantList(res.data);
       })
       .catch((err) => console.log(err));
-  }, [active]);
-
+  }, [winner]);
+  console.log(restaurantList);
   return (
     <div>
       <Header />
@@ -68,7 +78,11 @@ function Search() {
           <div className="wheel_around">
             {optionList.length > 0 ? (
               <div className="wheel_around1 pt-5">
-                <Wheel optionList={optionList} />
+                <Wheel
+                  optionList={optionList}
+                  idList={idList}
+                  onFinished={handleWheelFinished}
+                />
               </div>
             ) : (
               <></>
@@ -79,14 +93,13 @@ function Search() {
           </div>
         </div>
       )}
-      <Row className="d-flex justify-content-start flex-wrap m-5 px-5">
+      <Row className="d-flex justify-content-evenly flex-wrap m-5 px-5">
         {active !== "favoritePlace" && (
           <h1 className="text-black mb-4">ĐỊA ĐIỂM GỢI Ý</h1>
         )}
-        {restaurantList.map((props) =>
-            <FavoriteCard info={props}>
-            </FavoriteCard>
-          )}
+        {restaurantList.map((props) => (
+          <FavoriteCard info={props} key={props.id}></FavoriteCard>
+        ))}
       </Row>
     </div>
   );
