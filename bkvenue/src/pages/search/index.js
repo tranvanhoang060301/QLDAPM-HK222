@@ -52,7 +52,7 @@ function Search() {
       if (winner === null) {
         URI = "https://bk-suggest.vercel.app/restaurant";
       } else {
-        URI = `https://bk-suggest.vercel.app/restaurant/findbydish/:${winner}`;
+        URI = `https://bk-suggest.vercel.app/restaurant/findbydish/${winner}`;
       }
     } else if (active === "beverage") {
       if (winner === null) {
@@ -68,6 +68,7 @@ function Search() {
       })
       .catch((err) => console.log(err));
   }, [winner, active]);
+  console.log(winner);
   console.log(restaurantList);
   return (
     <div>
