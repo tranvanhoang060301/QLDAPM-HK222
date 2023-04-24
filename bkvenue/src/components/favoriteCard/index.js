@@ -7,7 +7,7 @@ export default function FavoriteCard({
   const location = useLocation();
   const isFavoritePage = location.pathname === "/search/favoritePlace";
   return (
-    <Col className="d-flex justify-content-around flex-wrap fs-5 mb-4" xs={4}>
+    <Col className="d-flex justify-content-around flex-wrap fs-5 mb-4" xs={3}>
       <Card
         className="p-4"
         style={{

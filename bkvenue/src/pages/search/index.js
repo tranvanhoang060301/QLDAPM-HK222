@@ -67,7 +67,7 @@ function Search() {
         setRestaurantList(res.data);
       })
       .catch((err) => console.log(err));
-  }, [winner]);
+  }, [winner, active]);
   console.log(restaurantList);
   return (
     <div>

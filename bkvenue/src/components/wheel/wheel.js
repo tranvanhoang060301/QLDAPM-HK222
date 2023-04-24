@@ -10,6 +10,7 @@ const Wheel = ({optionList, idList, onFinished: onFinishedCall}) => {
     const winnerId = idList[winnerIndex][Object.keys(idList[winnerIndex])[0]];
     onFinishedCall(winnerId);
   };
+  console.log(optionList)
   return (
     <>
       {optionLists ? (
