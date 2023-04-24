@@ -1,9 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { Button, Col, Card } from "react-bootstrap";
 
-export default function FavoriteCard({
-  info
-}) {
+export default function FavoriteCard({ info }) {
   const location = useLocation();
   const isFavoritePage = location.pathname === "/search/favoritePlace";
   return (
@@ -29,9 +27,17 @@ export default function FavoriteCard({
           }}
         >
           <Card.Text>Tên: {info.name}</Card.Text>
-          <Card.Text>Địa chỉ: {info.address.num} {info.address.street}, phường {info.address.ward}, quận {info.address.district}, HCM</Card.Text>
+          <Card.Text>
+            Địa chỉ: {info.address.num} {info.address.street}, phường{" "}
+            {info.address.ward}, quận {info.address.district}, HCM
+          </Card.Text>
         </Card.Body>
-        <Card.Img variant="primary" src={info.imageUrl} className="rounded-2"/>
+        <Card.Img
+          variant="primary"
+          src={info.imageUrl}
+          className="rounded-2"
+          style={{ width: "100%", height: "232px" }}
+        />
         {!isFavoritePage && (
           <Button
             className="w-100 mt-3 py-3 fs-5 fw-bold border-0"
