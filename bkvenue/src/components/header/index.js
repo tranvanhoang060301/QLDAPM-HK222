@@ -34,7 +34,7 @@ function Header() {
               <Nav.Item className="m-2 d-flex justify-content-center">
                 <Button
                   className="px-4 py-2 fw-bold border-0"
-                  href={"/login"}
+                  href={"/"}
                   style={{ backgroundColor: "#A02F2F" }}
                   onMouseOver={(e) =>
                     (e.target.style.backgroundColor = "#6F2020")

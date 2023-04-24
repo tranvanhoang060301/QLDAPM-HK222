@@ -22,7 +22,7 @@ const Signup = () => {
 
     try {
       setLoading(true);
-      navigate("/");
+      navigate("/home");
     } catch (e) {
       setError("Failed to create an account. Please try again");
     }

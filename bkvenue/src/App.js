@@ -15,9 +15,9 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/" element={<Home/>} />
+          <Route path="/home" element={<Home/>} />
           {/* <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} /> */}
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/search/:slug" element={<Search />} />
           <Route path="/favoritePlaces" element={<FavoritePlaces />} />

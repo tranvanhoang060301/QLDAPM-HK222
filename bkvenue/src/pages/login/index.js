@@ -19,7 +19,7 @@ const Login = () => {
     try {
       setLoading(true);
       console.log("logged in");
-      navigate("/");
+      navigate("/home");
     } catch (e) {
       setError("Log In failed. Please check your email and password");
     }
