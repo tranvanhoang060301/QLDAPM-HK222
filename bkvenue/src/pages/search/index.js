@@ -13,12 +13,16 @@ function Search() {
   const location = useLocation();
   const [active, setActive] = useState(location.state.active);
   const [optionList, setOptionList] = useState([]);
-  const [idList, setIdList] = useState([]);
+  const [dishList, setDishList] = useState([]);
   const [restaurantList, setRestaurantList] = useState([]);
   const [winner, setWinner] = useState(null);
 
   const handleWheelFinished = (winner) => {
     setWinner(winner);
+  };
+
+  const updateOptionList = (id) => {
+    setDishList(dishList.filter((dishes) => dishes.id !== id));
   };
 
   useEffect(() => {
@@ -37,13 +41,14 @@ function Search() {
       .then((res) => {
         const updatedOptionList = res.data.map((option) => option.name);
         const updatedIdList = res.data.map((option) => option.id);
-        const mergedArray = updatedOptionList.map((item, index) => {
-          return { [item]: updatedIdList[index] };
+        const mergedDishArray = updatedIdList.map((item, index) => {
+          return { "id" : item, "name": updatedOptionList[index] };
         });
         setOptionList(updatedOptionList);
-        setIdList(mergedArray);
+        setDishList(mergedDishArray);
       })
       .catch((err) => console.log(err));
+      setWinner(null);
   }, [active]);
 
   useEffect(() => {
@@ -60,6 +65,15 @@ function Search() {
       } else {
         URI = `https://bk-suggest.vercel.app/stall/findbybeverage/${winner}`;
       }
+    } else if (active === "whatever") {
+        URI = "https://bk-suggest.vercel.app/restaurant";
+      
+        axios
+          .get("https://bk-suggest.vercel.app/stall")
+          .then((res) => {
+            setRestaurantList((prevList) => [...prevList, ...res.data]);
+          })
+          .catch((err) => console.log(err));
     }
     axios
       .get(URI)
@@ -68,8 +82,10 @@ function Search() {
       })
       .catch((err) => console.log(err));
   }, [winner, active]);
-  console.log(winner);
+  // console.log(winner);
   console.log(restaurantList);
+  console.log(dishList);
+  console.log(optionList);
   return (
     <div>
       <Header />
@@ -77,20 +93,21 @@ function Search() {
       {active !== "favoritePlace" && (
         <div className="wheel">
           <div className="wheel_around">
-            {optionList.length > 0 ? (
+            {dishList.length > 0 ? (
               <div className="wheel_around1 pt-5">
                 <Wheel
-                  optionList={optionList}
-                  idList={idList}
+                  optionList={dishList}
                   onFinished={handleWheelFinished}
                 />
               </div>
             ) : (
-              <></>
+              <>
+                <h2 className="mt-5 text-white">Bạn xem các địa điểm gợi ý bên dưới nhé!</h2>
+              </>
             )}
           </div>
           <div className="wheel_around">
-            <TodoWrapper active={active} optionList={optionList} />
+            <TodoWrapper active={active} optionList={dishList} onOptionItemChange={updateOptionList}/>
           </div>
         </div>
       )}

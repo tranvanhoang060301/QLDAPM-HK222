@@ -5,36 +5,23 @@ import { v4 as uuidv4 } from "uuid";
 import { EditTodoForm } from "./EditTodoForm";
 import "./base.css";
 
-export const TodoWrapper = ({ active, optionList }) => {
-  const [todos, setTodos] = useState([]);
+export const TodoWrapper = ({ active, optionList, onOptionItemChange}) => {
   const [optionItem, setOptionItem] = useState([]);
 
   useEffect(() => {
-    const tmp = [];
-    optionList.map((item) => {
-      tmp.push({
-        id: uuidv4(),
-        name: item,
-        completed: false,
-        isEditing: false,
-      });
-    });
-    setOptionItem(tmp);
+    setOptionItem(optionList);
   }, [optionList]);
 
+  console.log(optionList);
   const addTodo = (todo) => {
-    setTodos([...todos, { id: uuidv4(), name: todo, completed: false, isEditing: false }]);
+    setOptionItem([...optionItem, { id: uuidv4(), name: todo, completed: false, isEditing: false }]);
   };
 
-  const deleteTodo = (id) => setTodos(todos.filter((todo) => todo.id !== id));
-
-  const editTodo = (id) => {
-    setTodos(todos.map((todo) => (todo.id === id ? { ...todo, isEditing: !todo.isEditing } : todo)));
-  };
-
-  const editTask = (task, id) => {
-    setTodos(todos.map((todo) => (todo.id === id ? { ...todo, task, isEditing: !todo.isEditing } : todo)));
-  };
+  const deleteTodo = (id) => {
+    setOptionItem(optionItem.filter((todo) => todo.id !== id));
+    onOptionItemChange(id);
+  }
+  console.log(optionItem.map(item => item.name));
 
   return (
     <div className="TodoWrapper">

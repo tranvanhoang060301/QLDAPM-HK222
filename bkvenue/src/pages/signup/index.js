@@ -94,7 +94,7 @@ const Signup = () => {
         <div className="w-100 text-center mt-3">
           Đã có tài khoản?{" "}
           <Link
-            to="/login"
+            to="/"
             className="text-primary"
             style={{ textDecoration: "none" }}
           >
