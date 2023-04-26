@@ -2,14 +2,16 @@ import React from "react";
 import WheelComponent from "./WheelComponent";
 import "./base.css";
 
-const Wheel = ({optionList, onFinished: onFinishedCall}) => {
+const Wheel = ({active, optionList, onFinished: onFinishedCall}) => {
   const segColors = ["#EE4040", "#F0CF50", "#815CD1", "#3DA5E0", "#34A24F", "#F9AA1F", "#EC3F3F", "#FF9000"];
   const onFinished = (winner) => {
-    const winnerId = optionList.find((element) => element.name === winner).id;
-    console.log(winner);
-    onFinishedCall(winnerId);
+    if (active !== "whatever") {
+      const winnerId = optionList.find((element) => element.name === winner).id;
+      onFinishedCall(winnerId);
+    }
+    onFinishedCall(winner);
   };
-  console.log(optionList);
+  
   return (
     <>
       {optionList ? (

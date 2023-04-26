@@ -18,7 +18,8 @@ function Search() {
   const [winner, setWinner] = useState(null);
 
   const handleWheelFinished = (winner) => {
-    setWinner(winner);
+    setWinner(active === "whatever"? optionList.find((element) => element.name.toLowerCase() === winner.toLowerCase()).id : winner);
+    console.log(winner);
   };
 
   const updateOptionList = (id) => {
@@ -35,20 +36,36 @@ function Search() {
 
   useEffect(() => {
     let URI = `https://bk-suggest.vercel.app/${active}`;
-    // Call API to get option
+
+    if (active === "whatever") {
+      URI = "https://bk-suggest.vercel.app/dish";
+
+      axios
+        .get("https://bk-suggest.vercel.app/beverage")
+        .then((res) => {
+          setOptionList((prevList) => [...prevList, ...res.data]);
+        })
+        .catch((err) => console.log(err));
+    }
+
     axios
       .get(URI)
       .then((res) => {
         const updatedOptionList = res.data.map((option) => option.name);
         const updatedIdList = res.data.map((option) => option.id);
         const mergedDishArray = updatedIdList.map((item, index) => {
-          return { "id" : item, "name": updatedOptionList[index] };
+          return { id: item, name: updatedOptionList[index] };
         });
-        setOptionList(updatedOptionList);
-        setDishList(mergedDishArray);
+        if (active === "whatever"){
+          setOptionList(res.data);
+          setDishList([]);
+        } else {
+          setOptionList(updatedOptionList);
+          setDishList(mergedDishArray);
+        }
       })
       .catch((err) => console.log(err));
-      setWinner(null);
+    setWinner(null);
   }, [active]);
 
   useEffect(() => {
@@ -66,14 +83,17 @@ function Search() {
         URI = `https://bk-suggest.vercel.app/stall/findbybeverage/${winner}`;
       }
     } else if (active === "whatever") {
-        URI = "https://bk-suggest.vercel.app/restaurant";
-      
-        axios
-          .get("https://bk-suggest.vercel.app/stall")
-          .then((res) => {
-            setRestaurantList((prevList) => [...prevList, ...res.data]);
-          })
-          .catch((err) => console.log(err));
+        if (winner === null) {
+          URI = "https://bk-suggest.vercel.app/restaurant";
+        } else {
+          URI = `https://bk-suggest.vercel.app/restaurant/findbydish/${winner}`;
+        }
+      axios
+        .get(winner === null ? "https://bk-suggest.vercel.app/stall" : `https://bk-suggest.vercel.app/stall/findbybeverage/${winner}`)
+        .then((res) => {
+          setRestaurantList((prevList) => [...prevList, ...res.data]);
+        })
+        .catch((err) => console.log(err));
     }
     axios
       .get(URI)
@@ -82,7 +102,7 @@ function Search() {
       })
       .catch((err) => console.log(err));
   }, [winner, active]);
-  // console.log(winner);
+  console.log(winner);
   console.log(restaurantList);
   console.log(dishList);
   console.log(optionList);
@@ -95,19 +115,23 @@ function Search() {
           <div className="wheel_around">
             {dishList.length > 0 ? (
               <div className="wheel_around1 pt-5">
-                <Wheel
-                  optionList={dishList}
-                  onFinished={handleWheelFinished}
-                />
+                <Wheel active={active} optionList={dishList} onFinished={handleWheelFinished} />
               </div>
             ) : (
               <>
-                <h2 className="mt-5 text-white">Bạn xem các địa điểm gợi ý bên dưới nhé!</h2>
+                <h2 className="mt-5 text-white">
+                  Bạn xem các địa điểm gợi ý bên dưới nhé!
+                </h2>
               </>
             )}
           </div>
           <div className="wheel_around">
-            <TodoWrapper active={active} optionList={dishList} onOptionItemChange={updateOptionList} onOptionItemAdd={addOptionList}/>
+            <TodoWrapper
+              active={active}
+              optionList={dishList}
+              onOptionItemChange={updateOptionList}
+              onOptionItemAdd={addOptionList}
+            />
           </div>
         </div>
       )}
@@ -115,17 +139,15 @@ function Search() {
         {active !== "favoritePlace" && (
           <h1 className="text-black mb-4">ĐỊA ĐIỂM GỢI Ý</h1>
         )}
-        {
-        restaurantList.length > 0 ? (
+        {restaurantList.length > 0 ? (
           restaurantList.map((props) => (
             <FavoriteCard info={props} key={props.id}></FavoriteCard>
           ))
         ) : (
           <>
-            <h2 className="mt-5 text-white">Không có quán nào hết bạn ơi!</h2>
+            <h2 className="mt-5">Không có quán nào hết bạn ơi!</h2>
           </>
-        )
-        }
+        )}
       </Row>
     </div>
   );

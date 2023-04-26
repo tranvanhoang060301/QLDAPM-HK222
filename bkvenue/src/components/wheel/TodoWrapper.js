@@ -14,9 +14,8 @@ export const TodoWrapper = ({ active, optionList, onOptionItemChange, onOptionIt
 
   
   const addTodo = (todo) => {
-    setOptionItem([...optionItem, { id: uuidv4(), name: todo}]);
-    console.log(optionItem);
-    onOptionItemAdd(optionItem);
+    setOptionItem(optionItem => [...optionItem, { id: uuidv4(), name: todo}]);
+    onOptionItemAdd(optionItem => [...optionItem, { id: uuidv4(), name: todo}]);
   };
 
   const deleteTodo = (id) => {
