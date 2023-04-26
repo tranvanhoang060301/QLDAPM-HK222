@@ -25,16 +25,16 @@ function Search() {
     setDishList(dishList.filter((dishes) => dishes.id !== id));
   };
 
+  const addOptionList = (newOptionList) => {
+    setDishList(newOptionList);
+  };
+
   useEffect(() => {
     setActive(location.state.active);
   }, [location]);
 
   useEffect(() => {
     let URI = `https://bk-suggest.vercel.app/${active}`;
-    if (active === "whatever") {
-      // URI get all food and beverage
-      URI = `https://bk-suggest.vercel.app/dish`;
-    }
     // Call API to get option
     axios
       .get(URI)
@@ -107,7 +107,7 @@ function Search() {
             )}
           </div>
           <div className="wheel_around">
-            <TodoWrapper active={active} optionList={dishList} onOptionItemChange={updateOptionList}/>
+            <TodoWrapper active={active} optionList={dishList} onOptionItemChange={updateOptionList} onOptionItemAdd={addOptionList}/>
           </div>
         </div>
       )}
@@ -115,9 +115,17 @@ function Search() {
         {active !== "favoritePlace" && (
           <h1 className="text-black mb-4">ĐỊA ĐIỂM GỢI Ý</h1>
         )}
-        {restaurantList.map((props) => (
-          <FavoriteCard info={props} key={props.id}></FavoriteCard>
-        ))}
+        {
+        restaurantList.length > 0 ? (
+          restaurantList.map((props) => (
+            <FavoriteCard info={props} key={props.id}></FavoriteCard>
+          ))
+        ) : (
+          <>
+            <h2 className="mt-5 text-white">Không có quán nào hết bạn ơi!</h2>
+          </>
+        )
+        }
       </Row>
     </div>
   );

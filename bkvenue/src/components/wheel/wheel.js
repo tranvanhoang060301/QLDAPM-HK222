@@ -9,7 +9,7 @@ const Wheel = ({optionList, onFinished: onFinishedCall}) => {
     console.log(winner);
     onFinishedCall(winnerId);
   };
-  
+  console.log(optionList);
   return (
     <>
       {optionList ? (

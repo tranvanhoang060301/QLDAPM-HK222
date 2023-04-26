@@ -5,23 +5,24 @@ import { v4 as uuidv4 } from "uuid";
 import { EditTodoForm } from "./EditTodoForm";
 import "./base.css";
 
-export const TodoWrapper = ({ active, optionList, onOptionItemChange}) => {
+export const TodoWrapper = ({ active, optionList, onOptionItemChange, onOptionItemAdd}) => {
   const [optionItem, setOptionItem] = useState([]);
 
   useEffect(() => {
     setOptionItem(optionList);
   }, [optionList]);
 
-  console.log(optionList);
+  
   const addTodo = (todo) => {
-    setOptionItem([...optionItem, { id: uuidv4(), name: todo, completed: false, isEditing: false }]);
+    setOptionItem([...optionItem, { id: uuidv4(), name: todo}]);
+    console.log(optionItem);
+    onOptionItemAdd(optionItem);
   };
 
   const deleteTodo = (id) => {
     setOptionItem(optionItem.filter((todo) => todo.id !== id));
     onOptionItemChange(id);
   }
-  console.log(optionItem.map(item => item.name));
 
   return (
     <div className="TodoWrapper">
