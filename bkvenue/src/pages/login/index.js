@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Container, Form, Button, Alert } from "react-bootstrap";
-
+import axios from "axios";
 import Background from "../../assets/images/background.png";
 
 const Login = () => {
@@ -15,14 +15,21 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
     try {
-      setLoading(true);
-      console.log("logged in");
-      navigate("/home");
-    } catch (e) {
-      setError("Log In failed. Please check your email and password");
+      const response = await axios.post("https://bk-suggest.vercel.app/user/login", { email, password });
+      if(response.data !== 'Firebase: Error (auth/user-not-found).') {
+        console.log(response.data);
+        navigate("/home");
+      } else {
+        console.log(response.data);
+        setError("Đăng nhập thất bại, vui lòng thử lại!");
+      }
+    } catch (error) {
+      setError("Đăng nhập thất bại, vui lòng thử lại!");
     }
+
     setLoading(false);
   };
 
@@ -44,7 +51,10 @@ const Login = () => {
         <h2 className="text-center fs-2 fw-bolder py-2">ĐĂNG NHẬP</h2>
         <Form onSubmit={handleSubmit}>
           {error !== "" && <Alert variant="danger">{error}</Alert>}
-          <Form.Group className="d-flex flex-column align-items-start mb-3" controlId="email">
+          <Form.Group
+            className="d-flex flex-column align-items-start mb-3"
+            controlId="email"
+          >
             <Form.Label className="font-medium">Email</Form.Label>
             <Form.Control
               type="email"
@@ -53,7 +63,10 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </Form.Group>
-          <Form.Group className="d-flex flex-column align-items-start mb-3" controlId="password">
+          <Form.Group
+            className="d-flex flex-column align-items-start mb-3"
+            controlId="password"
+          >
             <Form.Label className="font-medium">Mật khẩu</Form.Label>
             <Form.Control
               type="password"

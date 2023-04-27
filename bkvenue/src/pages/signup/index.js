@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Container, Form, Button, Alert } from "react-bootstrap";
+import axios from "axios";
 
 import Background from "../../assets/images/background.png";
 
@@ -14,14 +15,15 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
-
     if (passwordConfirm !== password) {
+
       return setError("Passwords are not matching");
     }
 
     try {
       setLoading(true);
+      const response = await axios.post("https://bk-suggest.vercel.app/user/register", { email, password, passwordConfirm });
+      console.log(response.data);
       navigate("/home");
     } catch (e) {
       setError("Failed to create an account. Please try again");
@@ -51,7 +53,10 @@ const Signup = () => {
               {error}
             </Alert>
           )}
-          <Form.Group className="d-flex flex-column align-items-start mb-3" controlId="formEmail">
+          <Form.Group
+            className="d-flex flex-column align-items-start mb-3"
+            controlId="formEmail"
+          >
             <Form.Label>Email</Form.Label>
             <Form.Control
               type="email"
@@ -61,7 +66,10 @@ const Signup = () => {
             />
           </Form.Group>
 
-          <Form.Group className="d-flex flex-column align-items-start mb-3" controlId="formPassword">
+          <Form.Group
+            className="d-flex flex-column align-items-start mb-3"
+            controlId="formPassword"
+          >
             <Form.Label>Mật khẩu</Form.Label>
             <Form.Control
               type="password"
@@ -71,7 +79,10 @@ const Signup = () => {
             />
           </Form.Group>
 
-          <Form.Group className="d-flex flex-column align-items-start mb-3" controlId="formPasswordConfirm">
+          <Form.Group
+            className="d-flex flex-column align-items-start mb-3"
+            controlId="formPasswordConfirm"
+          >
             <Form.Label>Xác nhận mật khẩu</Form.Label>
             <Form.Control
               type="password"

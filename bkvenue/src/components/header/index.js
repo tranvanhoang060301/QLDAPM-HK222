@@ -13,7 +13,7 @@ function Header() {
       >
         <Container fluid>
           <Navbar.Brand>
-            <Link to={"/"}>
+            <Link to={"/home"}>
               <img src={Logo} alt="Logo" className="cursor-pointer" />
             </Link>
           </Navbar.Brand>

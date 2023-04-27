@@ -15,10 +15,17 @@ function Search() {
   const [optionList, setOptionList] = useState([]);
   const [dishList, setDishList] = useState([]);
   const [restaurantList, setRestaurantList] = useState([]);
+  const [favoriteList, setFavoriteList] = useState([]);
   const [winner, setWinner] = useState(null);
 
   const handleWheelFinished = (winner) => {
-    setWinner(active === "whatever"? optionList.find((element) => element.name.toLowerCase() === winner.toLowerCase()).id : winner);
+    setWinner(
+      active === "whatever"
+        ? optionList.find(
+            (element) => element.name.toLowerCase() === winner.toLowerCase()
+          ).id
+        : winner
+    );
     console.log(winner);
   };
 
@@ -30,6 +37,14 @@ function Search() {
     setDishList(newOptionList);
   };
 
+  const updateFavoriteList = (newFav) => {
+    console.log(newFav);
+    setFavoriteList((prevList) => [...prevList, newFav]);
+  };
+
+  const deleteFavoriteList = (favId) => {
+    setFavoriteList(favoriteList.filter((fav) => fav.id !== favId));
+  };
   useEffect(() => {
     setActive(location.state.active);
   }, [location]);
@@ -56,7 +71,7 @@ function Search() {
         const mergedDishArray = updatedIdList.map((item, index) => {
           return { id: item, name: updatedOptionList[index] };
         });
-        if (active === "whatever"){
+        if (active === "whatever") {
           setOptionList(res.data);
           setDishList([]);
         } else {
@@ -83,13 +98,17 @@ function Search() {
         URI = `https://bk-suggest.vercel.app/stall/findbybeverage/${winner}`;
       }
     } else if (active === "whatever") {
-        if (winner === null) {
-          URI = "https://bk-suggest.vercel.app/restaurant";
-        } else {
-          URI = `https://bk-suggest.vercel.app/restaurant/findbydish/${winner}`;
-        }
+      if (winner === null) {
+        URI = "https://bk-suggest.vercel.app/restaurant";
+      } else {
+        URI = `https://bk-suggest.vercel.app/restaurant/findbydish/${winner}`;
+      }
       axios
-        .get(winner === null ? "https://bk-suggest.vercel.app/stall" : `https://bk-suggest.vercel.app/stall/findbybeverage/${winner}`)
+        .get(
+          winner === null
+            ? "https://bk-suggest.vercel.app/stall"
+            : `https://bk-suggest.vercel.app/stall/findbybeverage/${winner}`
+        )
         .then((res) => {
           setRestaurantList((prevList) => [...prevList, ...res.data]);
         })
@@ -106,6 +125,7 @@ function Search() {
   console.log(restaurantList);
   console.log(dishList);
   console.log(optionList);
+  console.log(favoriteList);
   return (
     <div>
       <Header />
@@ -115,7 +135,11 @@ function Search() {
           <div className="wheel_around">
             {dishList.length > 0 ? (
               <div className="wheel_around1 pt-5">
-                <Wheel active={active} optionList={dishList} onFinished={handleWheelFinished} />
+                <Wheel
+                  active={active}
+                  optionList={dishList}
+                  onFinished={handleWheelFinished}
+                />
               </div>
             ) : (
               <>
@@ -139,9 +163,14 @@ function Search() {
         {active !== "favoritePlace" && (
           <h1 className="text-black mb-4">ĐỊA ĐIỂM GỢI Ý</h1>
         )}
-        {restaurantList.length > 0 ? (
-          restaurantList.map((props) => (
-            <FavoriteCard info={props} key={props.id}></FavoriteCard>
+        {((restaurantList.length > 0 && active !== "favoritePlace") || favoriteList.length > 0) ? (
+          (active === "favoritePlace" ? favoriteList : restaurantList).map((props) => (
+            <FavoriteCard
+              info={props}
+              key={props.id}
+              onFavoriteListChange={updateFavoriteList}
+              onOptionItemDelete={deleteFavoriteList}
+            ></FavoriteCard>
           ))
         ) : (
           <>

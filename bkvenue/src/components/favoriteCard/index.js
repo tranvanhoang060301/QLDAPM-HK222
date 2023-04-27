@@ -1,9 +1,15 @@
 import { useLocation } from "react-router-dom";
 import { Button, Col, Card } from "react-bootstrap";
 
-export default function FavoriteCard({ info }) {
+export default function FavoriteCard({ info, onFavoriteListChange, onOptionItemDelete}) {
   const location = useLocation();
   const isFavoritePage = location.pathname === "/search/favoritePlace";
+  const handleDelete = () => {
+    onOptionItemDelete(info.id)
+  }
+  const handleAdd = () => {
+    onFavoriteListChange(info);
+  };
   return (
     <Col className="d-flex justify-content-around flex-wrap fs-5 mb-4" xs={3}>
       <Card
@@ -46,6 +52,7 @@ export default function FavoriteCard({ info }) {
             }}
             onMouseOver={(e) => (e.target.style.backgroundColor = "#6F2020")}
             onMouseOut={(e) => (e.target.style.backgroundColor = "#A02F2F")}
+            onClick={handleAdd}
           >
             THÊM VÀO MỤC ƯA THÍCH
           </Button>
@@ -58,6 +65,7 @@ export default function FavoriteCard({ info }) {
             }}
             onMouseOver={(e) => (e.target.style.backgroundColor = "#6F2020")}
             onMouseOut={(e) => (e.target.style.backgroundColor = "#A02F2F")}
+            onClick={handleDelete}
           >
             XÓA
           </Button>
