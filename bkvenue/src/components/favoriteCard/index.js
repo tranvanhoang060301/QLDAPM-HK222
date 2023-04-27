@@ -1,14 +1,17 @@
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Button, Col, Card } from "react-bootstrap";
 
 export default function FavoriteCard({ info, onFavoriteListChange, onOptionItemDelete}) {
   const location = useLocation();
   const isFavoritePage = location.pathname === "/search/favoritePlace";
+  const [isAddedToFavorites, setIsAddedToFavorites] = useState(false);
   const handleDelete = () => {
     onOptionItemDelete(info.id)
   }
   const handleAdd = () => {
     onFavoriteListChange(info);
+    setIsAddedToFavorites(true);
   };
   return (
     <Col className="d-flex justify-content-around flex-wrap fs-5 mb-4" xs={3}>
@@ -47,6 +50,7 @@ export default function FavoriteCard({ info, onFavoriteListChange, onOptionItemD
         {!isFavoritePage && (
           <Button
             className="w-100 mt-3 py-3 fs-5 fw-bold border-0"
+            id={info.id}
             style={{
               backgroundColor: "#A02F2F",
             }}
@@ -54,7 +58,7 @@ export default function FavoriteCard({ info, onFavoriteListChange, onOptionItemD
             onMouseOut={(e) => (e.target.style.backgroundColor = "#A02F2F")}
             onClick={handleAdd}
           >
-            THÊM VÀO MỤC ƯA THÍCH
+            {isAddedToFavorites ? "ĐÃ THÊM VÀO MỤC ƯA THÍCH" : "THÊM VÀO MỤC ƯA THÍCH"}
           </Button>
         )}
         {isFavoritePage && (

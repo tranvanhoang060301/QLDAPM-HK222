@@ -38,8 +38,9 @@ function Search() {
   };
 
   const updateFavoriteList = (newFav) => {
-    console.log(newFav);
-    setFavoriteList((prevList) => [...prevList, newFav]);
+    if (!favoriteList.find((element) => element.id === newFav.id)){
+      setFavoriteList((prevList) => [...prevList, newFav]);
+    }
   };
 
   const deleteFavoriteList = (favId) => {
@@ -159,23 +160,28 @@ function Search() {
           </div>
         </div>
       )}
-      <Row className="d-flex justify-content-evenly flex-wrap m-5 px-5">
-        {active !== "favoritePlace" && (
+      <Row className={`d-flex justify-content-evenly flex-wrap p-5 ${active === "favoritePlace" ? "bg-dark" : ""}`}>
+        {active !== "favoritePlace" ? (
           <h1 className="text-black mb-4">ĐỊA ĐIỂM GỢI Ý</h1>
-        )}
-        {((restaurantList.length > 0 && active !== "favoritePlace") || favoriteList.length > 0) ? (
-          (active === "favoritePlace" ? favoriteList : restaurantList).map((props) => (
-            <FavoriteCard
-              info={props}
-              key={props.id}
-              onFavoriteListChange={updateFavoriteList}
-              onOptionItemDelete={deleteFavoriteList}
-            ></FavoriteCard>
-          ))
         ) : (
-          <>
+          <h1 className="text-white mb-4">ĐỊA ĐIỂM YÊU THÍCH</h1>
+        )}
+        {(restaurantList.length > 0 && active !== "favoritePlace") ||
+        favoriteList.length > 0 ? (
+          (active === "favoritePlace" ? favoriteList : restaurantList).map(
+            (props) => (
+              <FavoriteCard
+                info={props}
+                key={props.id}
+                onFavoriteListChange={updateFavoriteList}
+                onOptionItemDelete={deleteFavoriteList}
+              ></FavoriteCard>
+            )
+          )
+        ) : (
+          <div style={{ height: "50vh" }}>
             <h2 className="mt-5">Không có quán nào hết bạn ơi!</h2>
-          </>
+          </div>
         )}
       </Row>
     </div>
