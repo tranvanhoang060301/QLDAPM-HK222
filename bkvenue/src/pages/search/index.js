@@ -38,7 +38,7 @@ function Search() {
   };
 
   const updateFavoriteList = (newFav) => {
-    if (!favoriteList.find((element) => element.id === newFav.id)){
+    if (!favoriteList.find((element) => element.id === newFav.id)) {
       setFavoriteList((prevList) => [...prevList, newFav]);
     }
   };
@@ -51,36 +51,37 @@ function Search() {
   }, [location]);
 
   useEffect(() => {
-    let URI = `https://bk-suggest.vercel.app/${active}`;
+    let URI = ``;
+    if (active !== "favoritePlace") {
+      URI = `https://bk-suggest.vercel.app/${active}`;
+      if (active === "whatever") {
+        URI = "https://bk-suggest.vercel.app/dish";
 
-    if (active === "whatever") {
-      URI = "https://bk-suggest.vercel.app/dish";
-
+        axios
+          .get("https://bk-suggest.vercel.app/beverage")
+          .then((res) => {
+            setOptionList((prevList) => [...prevList, ...res.data]);
+          })
+          .catch((err) => console.log(err));
+      }
       axios
-        .get("https://bk-suggest.vercel.app/beverage")
+        .get(URI)
         .then((res) => {
-          setOptionList((prevList) => [...prevList, ...res.data]);
+          const updatedOptionList = res.data.map((option) => option.name);
+          const updatedIdList = res.data.map((option) => option.id);
+          const mergedDishArray = updatedIdList.map((item, index) => {
+            return { id: item, name: updatedOptionList[index] };
+          });
+          if (active === "whatever") {
+            setOptionList(res.data);
+            setDishList([]);
+          } else {
+            setOptionList(updatedOptionList);
+            setDishList(mergedDishArray);
+          }
         })
         .catch((err) => console.log(err));
     }
-
-    axios
-      .get(URI)
-      .then((res) => {
-        const updatedOptionList = res.data.map((option) => option.name);
-        const updatedIdList = res.data.map((option) => option.id);
-        const mergedDishArray = updatedIdList.map((item, index) => {
-          return { id: item, name: updatedOptionList[index] };
-        });
-        if (active === "whatever") {
-          setOptionList(res.data);
-          setDishList([]);
-        } else {
-          setOptionList(updatedOptionList);
-          setDishList(mergedDishArray);
-        }
-      })
-      .catch((err) => console.log(err));
     setWinner(null);
   }, [active]);
 
@@ -98,7 +99,7 @@ function Search() {
       } else {
         URI = `https://bk-suggest.vercel.app/stall/findbybeverage/${winner}`;
       }
-    } else if (active === "whatever") {
+    } else if (active === "whatever" || active === "favoritePlace") {
       if (winner === null) {
         URI = "https://bk-suggest.vercel.app/restaurant";
       } else {
@@ -122,10 +123,8 @@ function Search() {
       })
       .catch((err) => console.log(err));
   }, [winner, active]);
-  console.log(winner);
   console.log(restaurantList);
   console.log(dishList);
-  console.log(optionList);
   console.log(favoriteList);
   return (
     <div>
@@ -160,7 +159,11 @@ function Search() {
           </div>
         </div>
       )}
-      <Row className={`d-flex justify-content-evenly flex-wrap p-5 ${active === "favoritePlace" ? "bg-dark" : ""}`}>
+      <Row
+        className={`d-flex justify-content-evenly flex-wrap p-5 ${
+          active === "favoritePlace" ? "bg-dark" : ""
+        }`}
+      >
         {active !== "favoritePlace" ? (
           <h1 className="text-black mb-4">ĐỊA ĐIỂM GỢI Ý</h1>
         ) : (
