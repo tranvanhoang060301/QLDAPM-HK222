@@ -86,25 +86,28 @@ function Search() {
   }, [active]);
 
   useEffect(() => {
-    let URI = "";
+    let URI = "https://bk-suggest.vercel.app/restaurant";
     if (active === "dish") {
       if (winner === null) {
         URI = "https://bk-suggest.vercel.app/restaurant";
       } else {
         URI = `https://bk-suggest.vercel.app/restaurant/findbydish/${winner}`;
       }
+      getResList(URI);
     } else if (active === "beverage") {
       if (winner === null) {
         URI = "https://bk-suggest.vercel.app/stall";
       } else {
         URI = `https://bk-suggest.vercel.app/stall/findbybeverage/${winner}`;
       }
-    } else if (active === "whatever" || active === "favoritePlace") {
+      getResList(URI);
+    } else if (active === "whatever") {
       if (winner === null) {
         URI = "https://bk-suggest.vercel.app/restaurant";
       } else {
         URI = `https://bk-suggest.vercel.app/restaurant/findbydish/${winner}`;
       }
+      getResList(URI);
       axios
         .get(
           winner === null
@@ -115,14 +118,17 @@ function Search() {
           setRestaurantList((prevList) => [...prevList, ...res.data]);
         })
         .catch((err) => console.log(err));
+    } else {
+      getResList(URI);
+      axios
+        .get("https://bk-suggest.vercel.app/stall")
+        .then((res) => {
+          setRestaurantList((prevList) => [...prevList, ...res.data]);
+        })
+        .catch((err) => console.log(err));
     }
-    axios
-      .get(URI)
-      .then((res) => {
-        setRestaurantList(res.data);
-      })
-      .catch((err) => console.log(err));
   }, [winner, active]);
+  console.log(winner);
   console.log(restaurantList);
   console.log(dishList);
   console.log(favoriteList);
@@ -189,6 +195,15 @@ function Search() {
       </Row>
     </div>
   );
+
+  function getResList(URI) {
+    axios
+      .get(URI)
+      .then((res) => {
+        setRestaurantList(res.data);
+      })
+      .catch((err) => console.log(err));
+  }
 }
 
 export default Search;
